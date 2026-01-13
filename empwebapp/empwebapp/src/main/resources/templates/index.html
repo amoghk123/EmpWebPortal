@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-container input {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .form-container button {
+            grid-column: span 2;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 80%;
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        a {
+            color: red;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Employee Management Form</h1>
+
+    <form class="form-container" th:action="@{/add}" method="post">
+        <label for="id">Employee ID:</label>
+        <input type="text" name="id" id="id" required />
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required />
+
+        <label for="department">Department:</label>
+        <input type="text" name="department" id="department" required />
+
+        <label for="salary">Salary:</label>
+        <input type="text" name="salary" id="salary" required />
+
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <h2 style="text-align:center;">Employee List</h2>
+
+    <table>
+        <tr>
+            <th>ID</th><th>Name</th><th>Department</th><th>Salary</th><th>Actions</th>
+        </tr>
+        <tr th:each="emp : ${employees}">
+            <td th:text="${emp.id}"></td>
+            <td th:text="${emp.name}"></td>
+            <td th:text="${emp.department}"></td>
+            <td th:text="${emp.salary}"></td>
+            <td>
+                <a th:href="@{'/delete/' + ${emp.id}}">Delete</a>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
